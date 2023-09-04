@@ -33,8 +33,6 @@ build/
 .vscode/
 
 ### Enviroment variables ###
-src/main/resources/env.properties
+src/main/resources/env-dev.properties
+src/main/resources/env-prod.properties
 .env
-
-### PostgreSQL ###
-/postgres_data/
