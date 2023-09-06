@@ -12,11 +12,27 @@ public class UserTypeService {
     @Autowired
     private UserTypeRepository userTypeRepository;
 
-    public List<UserType> getAllUserTypes() {
-        return userTypeRepository.findAll();
+    @Autowired
+    private  UserTypeMapper userTypeMapper;
+
+    public List<UserTypeDTO> getAllUserTypes() {
+        List<UserType> userTypeList = userTypeRepository.findAll();
+        return userTypeMapper.toUserTypeDTOList(userTypeList);
     }
 
-    public Optional<UserType> getUserTypeById(Long id) {
-        return userTypeRepository.findById(id);
+    public Optional<UserTypeDTO> getUserTypeById(Long id) {
+        return userTypeRepository.findById(id)
+                .map(userTypeMapper::toUserTypeDTO);
+    }
+
+    public UserType createUserType(UserTypeDTO userTypeDTO) {
+        return userTypeRepository.save(userTypeMapper.toUserTypeEntity(userTypeDTO));
+    }
+
+    public boolean deleteUserTypeById(Long id) {
+        return getUserTypeById(id).map(userType -> {
+            userTypeRepository.deleteById(id);
+            return true;
+        }).orElse(false);
     }
 }

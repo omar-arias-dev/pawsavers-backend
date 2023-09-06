@@ -7,11 +7,11 @@ import jakarta.persistence.*;
 public class UserType {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", columnDefinition = "serial")
     private Long id;
 
-    @Column(name = "type")
+    @Column(name = "type", length = 20, nullable = false, unique = true)
     private String type;
 
     public Long getId() {
@@ -28,5 +28,13 @@ public class UserType {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "UserType{" +
+                "id=" + id +
+                ", type='" + type + '\'' +
+                '}';
     }
 }
