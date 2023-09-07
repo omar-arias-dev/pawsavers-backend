@@ -22,7 +22,7 @@ public class UserTypeController {
     @GetMapping("/{id}")
     public ResponseEntity<UserTypeDTO> getUserTypeById(@PathVariable("id") long id) {
         return userTypeService.getUserTypeById(id)
-                .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
+                .map(userType -> new ResponseEntity<>(userType, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
