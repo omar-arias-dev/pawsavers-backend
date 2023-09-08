@@ -1,6 +1,7 @@
 package com.oad.pawsavers.user;
 
 import com.oad.pawsavers.common.constants.Gender;
+import com.oad.pawsavers.usertype.UserType;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -43,6 +44,10 @@ public class User {
 
     @Column(length = 20)
     private String occupation;
+
+    @ManyToOne
+    @JoinColumn(name = "user_type_id", foreignKey = @ForeignKey(name = "user_type_fk"), nullable = false)
+    private UserType userType;
 
     public Long getId() {
         return id;
@@ -130,6 +135,14 @@ public class User {
 
     public void setOccupation(String occupation) {
         this.occupation = occupation;
+    }
+
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
     }
 
     @Override

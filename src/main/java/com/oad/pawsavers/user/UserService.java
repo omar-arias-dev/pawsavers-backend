@@ -1,6 +1,7 @@
 package com.oad.pawsavers.user;
 
 import com.oad.pawsavers.common.constants.Gender;
+import com.oad.pawsavers.usertype.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +43,8 @@ public class UserService {
         Optional<User> optionalUser = userRepository.findById(id);
         if (optionalUser.isPresent()) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss");
+            UserType toGetIdUserType = new UserType();
+            toGetIdUserType.setId(updatedUserDTO.getUserTypeId());
             User user = optionalUser.get();
             user.setName(updatedUserDTO.getUserName());
             user.setLastname(updatedUserDTO.getUserLastname());
@@ -53,6 +56,7 @@ public class UserService {
             user.setPostalCode(updatedUserDTO.getPostalCode());
             user.setRegistrationDate(LocalDateTime.parse(updatedUserDTO.getRegistrationDate(), formatter));
             user.setOccupation(updatedUserDTO.getUserOccupation());
+            user.setUserType(toGetIdUserType);
             userRepository.save(user);
             return true;
         } else {

@@ -13,7 +13,7 @@ public class UserDTO {
     private String postalCode;
     private String registrationDate;
     private String userOccupation;
-
+    private Long userTypeId;
 
     public Long getUserId() {
         return userId;
@@ -103,6 +103,14 @@ public class UserDTO {
         this.userOccupation = userOccupation;
     }
 
+    public Long getUserTypeId() {
+        return userTypeId;
+    }
+
+    public void setUserTypeId(Long userTypeId) {
+        this.userTypeId = userTypeId;
+    }
+
     @Override
     public String toString() {
         return "UserDTO{" +
@@ -111,12 +119,13 @@ public class UserDTO {
                 ", userLastname='" + userLastname + '\'' +
                 ", userSecondLastname='" + userSecondLastname + '\'' +
                 ", curp='" + curp + '\'' +
-                ", userGender=" + userGender +
+                ", userGender='" + userGender + '\'' +
                 ", cellphoneNumber='" + cellphoneNumber + '\'' +
                 ", houseNumber='" + houseNumber + '\'' +
                 ", postalCode='" + postalCode + '\'' +
-                ", registrationDate=" + registrationDate +
+                ", registrationDate='" + registrationDate + '\'' +
                 ", userOccupation='" + userOccupation + '\'' +
+                ", userTypeId=" + userTypeId +
                 '}';
     }
 }

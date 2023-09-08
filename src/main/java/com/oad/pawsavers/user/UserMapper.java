@@ -18,6 +18,7 @@ public interface UserMapper {
             @Mapping(source = "gender", target = "userGender"),
             @Mapping(source = "registrationDate", target = "registrationDate", dateFormat = "yyyy-MM-dd HH-mm-ss"),
             @Mapping(source = "occupation", target = "userOccupation"),
+            @Mapping(source = "userType.id", target = "userTypeId"),
     })
     UserDTO toUserDTO(User user);
     List<UserDTO> toUserDTOList(List<User> userList);

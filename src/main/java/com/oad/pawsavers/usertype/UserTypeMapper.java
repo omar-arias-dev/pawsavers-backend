@@ -18,5 +18,6 @@ public interface UserTypeMapper {
     List<UserTypeDTO> toUserTypeDTOList(List<UserType> userTypeList);
 
     @InheritInverseConfiguration
+    @Mapping(target = "userList", ignore = true)
     UserType toUserTypeEntity(UserTypeDTO userTypeDTO);
 }
