@@ -24,5 +24,6 @@ public interface UserMapper {
     List<UserDTO> toUserDTOList(List<User> userList);
 
     @InheritInverseConfiguration
+    @Mapping(target = "petRescuerList", ignore = true)
     User toUserEntity(UserDTO userDTO);
 }

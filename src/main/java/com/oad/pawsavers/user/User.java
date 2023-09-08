@@ -1,10 +1,12 @@
 package com.oad.pawsavers.user;
 
 import com.oad.pawsavers.common.constants.Gender;
+import com.oad.pawsavers.petRescuer.PetRescuer;
 import com.oad.pawsavers.usertype.UserType;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -48,6 +50,9 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "user_type_id", foreignKey = @ForeignKey(name = "user_type_fk"), nullable = false)
     private UserType userType;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<PetRescuer> petRescuerList;
 
     public Long getId() {
         return id;
@@ -143,6 +148,14 @@ public class User {
 
     public void setUserType(UserType userType) {
         this.userType = userType;
+    }
+
+    public List<PetRescuer> getPetRescuerList() {
+        return petRescuerList;
+    }
+
+    public void setPetRescuerList(List<PetRescuer> petRescuerList) {
+        this.petRescuerList = petRescuerList;
     }
 
     @Override

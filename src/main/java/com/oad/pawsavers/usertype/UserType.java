@@ -1,5 +1,6 @@
 package com.oad.pawsavers.usertype;
 
+import com.oad.pawsavers.common.constants.UserTypes;
 import com.oad.pawsavers.user.User;
 import jakarta.persistence.*;
 
@@ -14,8 +15,9 @@ public class UserType {
     @Column(name = "id", columnDefinition = "serial")
     private Long id;
 
-    @Column(name = "type", length = 20, nullable = false, unique = true)
-    private String type;
+    @Column(name = "type", nullable = false, length = 20, unique = true)
+    @Enumerated(EnumType.STRING)
+    private UserTypes type;
 
     @OneToMany(mappedBy = "userType", cascade = CascadeType.ALL)
     private List<User> userList;
@@ -28,11 +30,11 @@ public class UserType {
         this.id = id;
     }
 
-    public String getType() {
+    public UserTypes getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(UserTypes type) {
         this.type = type;
     }
 
