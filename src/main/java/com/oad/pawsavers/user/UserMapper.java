@@ -25,5 +25,6 @@ public interface UserMapper {
 
     @InheritInverseConfiguration
     @Mapping(target = "petRescuerList", ignore = true)
+    @Mapping(target = "employeeList", ignore = true)
     User toUserEntity(UserDTO userDTO);
 }
