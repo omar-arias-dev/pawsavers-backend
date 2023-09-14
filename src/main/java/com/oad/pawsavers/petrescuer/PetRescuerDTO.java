@@ -1,4 +1,4 @@
-package com.oad.pawsavers.petRescuer;
+package com.oad.pawsavers.petrescuer;
 
 import com.oad.pawsavers.user.UserDTO;
 

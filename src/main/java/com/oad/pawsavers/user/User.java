@@ -2,7 +2,8 @@ package com.oad.pawsavers.user;
 
 import com.oad.pawsavers.common.constants.Gender;
 import com.oad.pawsavers.employee.Employee;
-import com.oad.pawsavers.petRescuer.PetRescuer;
+import com.oad.pawsavers.petadopter.PetAdopter;
+import com.oad.pawsavers.petrescuer.PetRescuer;
 import com.oad.pawsavers.usertype.UserType;
 import jakarta.persistence.*;
 
@@ -57,6 +58,9 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Employee> employeeList;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<PetAdopter> petAdopterList;
 
     public Long getId() {
         return id;
@@ -168,6 +172,14 @@ public class User {
 
     public void setEmployeeList(List<Employee> employeeList) {
         this.employeeList = employeeList;
+    }
+
+    public List<PetAdopter> getPetAdopterList() {
+        return petAdopterList;
+    }
+
+    public void setPetAdopterList(List<PetAdopter> petAdopterList) {
+        this.petAdopterList = petAdopterList;
     }
 
     @Override

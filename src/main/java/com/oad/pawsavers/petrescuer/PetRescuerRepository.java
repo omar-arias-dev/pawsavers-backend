@@ -1,8 +1,8 @@
-package com.oad.pawsavers.employee;
+package com.oad.pawsavers.petrescuer;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface EmployeeRepository extends JpaRepository<Employee, Long> {
+public interface PetRescuerRepository extends JpaRepository<PetRescuer, Long> {
 }

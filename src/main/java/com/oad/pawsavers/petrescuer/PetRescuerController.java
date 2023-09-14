@@ -1,4 +1,4 @@
-package com.oad.pawsavers.petRescuer;
+package com.oad.pawsavers.petrescuer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
