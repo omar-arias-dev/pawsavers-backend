@@ -4,17 +4,17 @@ import com.oad.pawsavers.user.UserDTO;
 
 public class PetRescuerDTO {
 
-    private Long userId;
+    private Long petRescuerId;
     private Integer rescuerLevel;
     private String rescueArea;
     private UserDTO userDTO;
 
-    public Long getUserId() {
-        return userId;
+    public Long getPetRescuerId() {
+        return petRescuerId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setPetRescuerId(Long petRescuerId) {
+        this.petRescuerId = petRescuerId;
     }
 
     public Integer getRescuerLevel() {
@@ -44,7 +44,7 @@ public class PetRescuerDTO {
     @Override
     public String toString() {
         return "PetRescuerDTO{" +
-                "userId=" + userId +
+                "petRescuerId=" + petRescuerId +
                 ", rescuerLevel=" + rescuerLevel +
                 ", rescueArea='" + rescueArea + '\'' +
                 ", userDTO=" + userDTO +

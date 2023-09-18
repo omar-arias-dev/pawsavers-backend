@@ -37,8 +37,9 @@ public class PetRescuerService {
 
     public PetRescuer savePetRescuer(PetRescuerDTO petRescuerDTO) {
         try {
-            Optional<UserDTO> user = userService.getUserById(petRescuerDTO.getUserId());
-            if (user.isPresent()) {
+            Optional<UserDTO> user = userService.getUserById(petRescuerDTO.getPetRescuerId());
+            boolean isAlreadyPetRescuer = petRescuerRepository.existsById(petRescuerDTO.getPetRescuerId());
+            if (user.isPresent() && !isAlreadyPetRescuer) {
                 Optional<UserTypeDTO> userType = userTypeService.getUserTypeById(user.get().getUserTypeId());
                 if (userType.isPresent() && UserTypes.PET_RESCUER.toString().equals(userType.get().getTypeOfUser())) {
                     return petRescuerRepository.save(petRescuerMapper.toPetRescuerEntity(petRescuerDTO));
@@ -57,7 +58,7 @@ public class PetRescuerService {
     public boolean deletePetRescuerById(long id) {
         return getPetRescuerById(id)
                 .map(petRescuerDTO -> {
-                    petRescuerRepository.deleteById(petRescuerDTO.getUserId());
+                    petRescuerRepository.deleteById(petRescuerDTO.getPetRescuerId());
                     return true;
                 })
                 .orElse(false);

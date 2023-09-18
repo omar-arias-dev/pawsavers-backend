@@ -40,15 +40,16 @@ public class EmployeeService {
     public Employee createEmployee(EmployeeDTO employeeDTO) {
         try {
             Optional<UserDTO> user = userService.getUserById(employeeDTO.getEmployeeId());
-            if (user.isPresent()) {
+            boolean isAlreadyEmployee = employeeRepository.existsById(employeeDTO.getEmployeeId());
+            if (user.isPresent() && !isAlreadyEmployee) {
                 Optional<UserTypeDTO> userTypeDTO = userTypeService.getUserTypeById(user.get().getUserTypeId());
                 if (userTypeDTO.isPresent() && UserTypes.EMPLOYEE.toString().equals(userTypeDTO.get().getTypeOfUser())) {
                     return employeeRepository.save(employeeMapper.toEmployeeEntity(employeeDTO));
                 } else {
-                    throw new RuntimeException("User type doesn't exist or isn't " + UserTypes.PET_RESCUER + ".");
+                    throw new RuntimeException("User type doesn't exist or isn't " + UserTypes.EMPLOYEE + ".");
                 }
             } else {
-                throw new RuntimeException("User: Is already a Pet Rescuer / Not registered to be Pet Rescuer / No exists.");
+                throw new RuntimeException("User: Is already a Employee / Not registered to be Employee / No exists.");
             }
         } catch (Error error) {
             System.out.println("Error: " + error.getMessage());

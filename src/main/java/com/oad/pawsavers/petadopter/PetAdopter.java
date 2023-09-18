@@ -3,7 +3,10 @@ package com.oad.pawsavers.petadopter;
 import com.oad.pawsavers.common.constants.MaritalStatus;
 import com.oad.pawsavers.common.constants.Sizes;
 import com.oad.pawsavers.user.User;
+import com.oad.pawsavers.visits.Visit;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "pet_adopters")
@@ -11,7 +14,7 @@ public class PetAdopter {
 
     @Id
     @Column(columnDefinition = "serial", name = "user_id", unique = true)
-    private Long petAdopterId;
+    private Long id;
 
     @Column(name = "home_size", nullable = false)
     @Enumerated(EnumType.STRING)
@@ -37,12 +40,15 @@ public class PetAdopter {
             nullable = false)
     private User user;
 
-    public Long getPetAdopterId() {
-        return petAdopterId;
+    @OneToMany(mappedBy = "petAdopter")
+    private List<Visit> visitList;
+
+    public Long getId() {
+        return id;
     }
 
-    public void setPetAdopterId(Long petAdopterId) {
-        this.petAdopterId = petAdopterId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Sizes getHomeSize() {
@@ -93,10 +99,18 @@ public class PetAdopter {
         this.user = user;
     }
 
+    public List<Visit> getVisitList() {
+        return visitList;
+    }
+
+    public void setVisitList(List<Visit> visitList) {
+        this.visitList = visitList;
+    }
+
     @Override
     public String toString() {
         return "PetAdopter{" +
-                "petAdopterId=" + petAdopterId +
+                "id=" + id +
                 ", homeSize=" + homeSize +
                 ", numberOfPets=" + numberOfPets +
                 ", maritalStatus=" + maritalStatus +

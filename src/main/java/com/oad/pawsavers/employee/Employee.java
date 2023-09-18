@@ -1,12 +1,14 @@
 package com.oad.pawsavers.employee;
 
 import com.oad.pawsavers.user.User;
+import com.oad.pawsavers.visits.Visit;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
-@Table(name = "employee")
+@Table(name = "employees")
 public class Employee {
 
     @Id
@@ -24,6 +26,9 @@ public class Employee {
             updatable = false,
             nullable = false)
     private User user;
+
+    @OneToMany(mappedBy = "employee")
+    private List<Visit> visitList;
 
     public Long getId() {
         return id;
@@ -47,6 +52,14 @@ public class Employee {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public List<Visit> getVisitList() {
+        return visitList;
+    }
+
+    public void setVisitList(List<Visit> visitList) {
+        this.visitList = visitList;
     }
 
     @Override

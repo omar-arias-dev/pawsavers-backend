@@ -10,6 +10,7 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = {UserMapper.class})
 public interface PetRescuerMapper {
 
+    @Mapping(source = "id", target = "petRescuerId")
     @Mapping(source = "user", target = "userDTO")
     PetRescuerDTO toPetRescuerDTO(PetRescuer petRescuer);
     List<PetRescuerDTO> toPetRescuerDTOList(List<PetRescuer> petRescuerList);

@@ -12,6 +12,7 @@ import java.util.List;
 public interface PetAdopterMapper {
 
     @Mappings({
+            @Mapping(source = "id", target = "petAdopterId"),
             @Mapping(source = "homeSize", target = "sizeOfHome"),
             @Mapping(source = "numberOfPets", target = "petsNumber"),
             @Mapping(source = "avatar", target = "petAdopterAvatar"),
@@ -23,5 +24,6 @@ public interface PetAdopterMapper {
 
     @InheritInverseConfiguration
     @Mapping(target = "user", ignore = true)
+    @Mapping(target = "visitList", ignore = true)
     PetAdopter toPetAdopterEntity(PetAdopterDTO petAdopterDTO);
 }

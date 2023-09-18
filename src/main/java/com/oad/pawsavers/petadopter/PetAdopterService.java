@@ -40,7 +40,8 @@ public class PetAdopterService {
     public PetAdopter createPetAdopter(PetAdopterDTO petAdopterDTO) {
         try {
             Optional<UserDTO> user = userService.getUserById(petAdopterDTO.getPetAdopterId());
-            if (user.isPresent()) {
+            boolean isAlreadyPetAdopter = petAdopterRepository.existsById(petAdopterDTO.getPetAdopterId());
+            if (user.isPresent() && !isAlreadyPetAdopter) {
                 Optional<UserTypeDTO> userTypeDTO = userTypeService.getUserTypeById(user.get().getUserTypeId());
                 if (userTypeDTO.isPresent() && UserTypes.PET_ADOPTER.toString().equals(userTypeDTO.get().getTypeOfUser())) {
                     return petAdopterRepository.save(petAdopterMapper.toPetAdopterEntity(petAdopterDTO));

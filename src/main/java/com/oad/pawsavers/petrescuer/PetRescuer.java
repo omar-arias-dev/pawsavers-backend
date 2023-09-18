@@ -9,7 +9,7 @@ public class PetRescuer {
 
     @Id
     @Column(columnDefinition = "serial", name = "user_id", unique = true)
-    private Long userId;
+    private Long id;
 
     @Column(name = "rescuer_level")
     private Integer rescuerLevel = 0;
@@ -26,12 +26,12 @@ public class PetRescuer {
             nullable = false)
     private User user;
 
-    public Long getUserId() {
-        return userId;
+    public Long getId() {
+        return id;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Integer getRescuerLevel() {
@@ -61,7 +61,7 @@ public class PetRescuer {
     @Override
     public String toString() {
         return "PetRescuer{" +
-                "userId=" + userId +
+                "id=" + id +
                 ", rescuerLevel=" + rescuerLevel +
                 ", rescueArea='" + rescueArea + '\'' +
                 ", user=" + user +

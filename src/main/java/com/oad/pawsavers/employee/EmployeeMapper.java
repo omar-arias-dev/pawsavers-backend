@@ -21,5 +21,6 @@ public interface EmployeeMapper {
 
     @InheritInverseConfiguration
     @Mapping(target = "user", ignore = true)
+    @Mapping(target = "visitList", ignore = true)
     Employee toEmployeeEntity(EmployeeDTO employeeDTO);
 }
