@@ -1,5 +1,10 @@
 package com.oad.pawsavers.visits;
 
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,14 +52,41 @@ public class VisitController {
         );
     }
 
+    @ApiResponses({
+            @ApiResponse(responseCode = "404", description = "employee o petAdopter not found", content = {@Content(schema = @Schema)}),
+    })
     @PostMapping
-    public ResponseEntity<Visit> createVisit(@RequestBody VisitDTO visitDTO) {
+    public ResponseEntity<Visit> createVisit(
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Id of visit is no required on request body.",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = {
+                                    @ExampleObject(
+                                            value = "{\"visitNotes\" : \"Notes\", \"visitDate\" : \"yyyy-MM-dd HH-mm-ss\", \"employeeId\" : 0, \"petAdopterId\" : 0}"
+                                    ),
+                            }
+                    )
+            )
+            @RequestBody VisitDTO visitDTO
+    ) {
         return new ResponseEntity<>(visitService.createVisit(visitDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/{visitId}")
     public ResponseEntity updateVisit(
             @PathVariable("visitId")  long visitId,
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Id of visit is no required on request body.",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = {
+                                    @ExampleObject(
+                                            value = "{\"visitNotes\" : \"Notes\", \"visitDate\" : \"yyyy-MM-dd HH-mm-ss\", \"employeeId\" : 0, \"petAdopterId\" : 0}"
+                                    ),
+                            }
+                    )
+            )
             @RequestBody VisitDTO visitDTO
     ) {
         if (visitService.updateVisit(visitId, visitDTO)) {
