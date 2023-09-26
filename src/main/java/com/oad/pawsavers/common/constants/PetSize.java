@@ -1,7 +1,9 @@
 package com.oad.pawsavers.common.constants;
 
-public enum Sizes {
+public enum PetSize {
+    XS,
     S,
     M,
-    L
+    L,
+    XL
 }

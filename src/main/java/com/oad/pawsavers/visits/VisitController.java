@@ -1,5 +1,6 @@
 package com.oad.pawsavers.visits;
 
+import com.oad.pawsavers.common.Requestbodies.DateAsStringRequestBody;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -44,7 +45,7 @@ public class VisitController {
     public ResponseEntity<List<VisitDetailsDTO>> getVisitByPetAdopterIdAndEmployeeIdAndVisitDateTime(
             @PathVariable("employeeId") long employeeId,
             @PathVariable("petAdopterId") long petAdopterId,
-            @RequestBody DateBody visitDateTime
+            @RequestBody DateAsStringRequestBody visitDateTime
     ) {
         return new ResponseEntity<>(visitService
                 .getVisitByEmployeeIdAndPetAdopterIdAndVisitDateTime(employeeId, petAdopterId, visitDateTime.getDatetime()),

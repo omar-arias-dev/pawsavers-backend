@@ -1,8 +1,15 @@
-package com.oad.pawsavers.visits;
+package com.oad.pawsavers.common.Requestbodies;
 
-public class DateBody {
+public class DateAsStringRequestBody {
 
     private String datetime;
+
+    public DateAsStringRequestBody() {
+    }
+
+    public DateAsStringRequestBody(String datetime) {
+        this.datetime = datetime;
+    }
 
     public String getDatetime() {
         return datetime;

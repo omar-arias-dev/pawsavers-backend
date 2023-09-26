@@ -9,5 +9,5 @@ public enum MaritalStatus {
     SEPARATED,
     ENGAGED,
     CIVIL_UNION,
-    OTHER;
+    OTHER
 }
