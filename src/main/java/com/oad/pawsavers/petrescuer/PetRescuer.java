@@ -1,7 +1,10 @@
 package com.oad.pawsavers.petrescuer;
 
+import com.oad.pawsavers.rescues.Rescue;
 import com.oad.pawsavers.user.User;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "pet_rescuers")
@@ -25,6 +28,9 @@ public class PetRescuer {
             updatable = false,
             nullable = false)
     private User user;
+
+    @OneToMany(mappedBy = "petRescuer", cascade = CascadeType.ALL)
+    private List<Rescue> rescueList;
 
     public Long getId() {
         return id;

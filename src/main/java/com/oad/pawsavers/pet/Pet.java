@@ -3,11 +3,13 @@ package com.oad.pawsavers.pet;
 import com.oad.pawsavers.common.constants.PetPersonality;
 import com.oad.pawsavers.common.constants.PetSize;
 import com.oad.pawsavers.common.constants.PetStatus;
+import com.oad.pawsavers.rescues.Rescue;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "pets")
@@ -56,6 +58,9 @@ public class Pet {
 
     @Column(name = "special_features")
     private String specialFeatures;
+
+    @OneToMany(mappedBy = "pet", cascade = CascadeType.ALL)
+    private List<Rescue> rescueList;
 
     public Long getId() {
         return id;
