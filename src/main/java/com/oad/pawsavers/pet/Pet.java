@@ -1,5 +1,6 @@
 package com.oad.pawsavers.pet;
 
+import com.oad.pawsavers.adopts.Adopt;
 import com.oad.pawsavers.common.constants.PetPersonality;
 import com.oad.pawsavers.common.constants.PetSize;
 import com.oad.pawsavers.common.constants.PetStatus;
@@ -61,6 +62,25 @@ public class Pet {
 
     @OneToMany(mappedBy = "pet", cascade = CascadeType.ALL)
     private List<Rescue> rescueList;
+
+    @OneToMany(mappedBy = "pet", cascade = CascadeType.ALL)
+    private List<Adopt> adoptList;
+
+    public List<Rescue> getRescueList() {
+        return rescueList;
+    }
+
+    public void setRescueList(List<Rescue> rescueList) {
+        this.rescueList = rescueList;
+    }
+
+    public List<Adopt> getAdoptList() {
+        return adoptList;
+    }
+
+    public void setAdoptList(List<Adopt> adoptList) {
+        this.adoptList = adoptList;
+    }
 
     public Long getId() {
         return id;

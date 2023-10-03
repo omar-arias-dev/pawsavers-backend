@@ -1,5 +1,6 @@
 package com.oad.pawsavers.petadopter;
 
+import com.oad.pawsavers.adopts.Adopt;
 import com.oad.pawsavers.common.constants.MaritalStatus;
 import com.oad.pawsavers.common.constants.Sizes;
 import com.oad.pawsavers.user.User;
@@ -40,8 +41,11 @@ public class PetAdopter {
             nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "petAdopter")
+    @OneToMany(mappedBy = "petAdopter", cascade = CascadeType.ALL)
     private List<Visit> visitList;
+
+    @OneToMany(mappedBy = "petAdopter", cascade = CascadeType.ALL)
+    private List<Adopt> adoptList;
 
     public Long getId() {
         return id;
@@ -105,6 +109,14 @@ public class PetAdopter {
 
     public void setVisitList(List<Visit> visitList) {
         this.visitList = visitList;
+    }
+
+    public List<Adopt> getAdoptList() {
+        return adoptList;
+    }
+
+    public void setAdoptList(List<Adopt> adoptList) {
+        this.adoptList = adoptList;
     }
 
     @Override
