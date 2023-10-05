@@ -1,5 +1,6 @@
 package com.oad.pawsavers.employee;
 
+import com.oad.pawsavers.cares.Care;
 import com.oad.pawsavers.user.User;
 import com.oad.pawsavers.visits.Visit;
 import jakarta.persistence.*;
@@ -29,6 +30,9 @@ public class Employee {
 
     @OneToMany(mappedBy = "employee")
     private List<Visit> visitList;
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+    private List<Care> careList;
 
     public Long getId() {
         return id;
@@ -60,6 +64,14 @@ public class Employee {
 
     public void setVisitList(List<Visit> visitList) {
         this.visitList = visitList;
+    }
+
+    public List<Care> getCareList() {
+        return careList;
+    }
+
+    public void setCareList(List<Care> careList) {
+        this.careList = careList;
     }
 
     @Override
