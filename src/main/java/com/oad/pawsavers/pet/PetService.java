@@ -1,5 +1,7 @@
 package com.oad.pawsavers.pet;
 
+import com.oad.pawsavers.color.Color;
+import com.oad.pawsavers.color.ColorRepository;
 import com.oad.pawsavers.common.constants.PetPersonality;
 import com.oad.pawsavers.common.constants.PetSize;
 import com.oad.pawsavers.common.constants.PetStatus;
@@ -20,6 +22,12 @@ public class PetService {
     @Autowired
     private PetMapper petMapper;
 
+    @Autowired
+    private PetDetailsMapper petDetailsMapper;
+
+    @Autowired
+    private ColorRepository colorRepository;
+
     public List<PetDTO> getAllPets() {
         return petMapper.toPetDTOList(petRepository.findAll());
     }
@@ -27,6 +35,11 @@ public class PetService {
     public Optional<PetDTO> getPetById(long id) {
         return petRepository.findById(id)
                 .map(pet -> petMapper.toPetDTO(pet));
+    }
+
+    public Optional<PetDetailsDTO> getPetWithDetailsById(long id) {
+        return petRepository.findById(id)
+                .map(pet -> petDetailsMapper.toPetDetailsDTO(pet));
     }
 
     public Pet createPet(PetDTO petDTO) {
@@ -85,5 +98,24 @@ public class PetService {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return petMapper.toPetDTOList(petRepository
                 .findByRescueDateOrderByNameAsc(LocalDate.parse(date, formatter)));
+    }
+
+    public PetDetailsDTO setPetColorsByPetId(long petId, List<Color> colorList) {
+        Optional<Pet> optionalPet = petRepository.findById(petId);
+        if (optionalPet.isPresent()) {
+            Pet petToUpdate = optionalPet.get();
+            boolean colorsExist = colorList.stream()
+                    .allMatch(color -> colorRepository.existsColorByNameAndHex(color.getName(), color.getHex()));
+            if (colorsExist) {
+                petToUpdate.setColorList(colorList);
+                return petDetailsMapper.toPetDetailsDTO(petRepository.save(petToUpdate));
+            } else {
+                System.out.println("Color(s) not exist");
+                return null;
+            }
+        } else {
+            System.out.println("Pet not exist.");
+            return null;
+        }
     }
 }

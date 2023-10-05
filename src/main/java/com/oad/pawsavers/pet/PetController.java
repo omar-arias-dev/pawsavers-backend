@@ -1,5 +1,6 @@
 package com.oad.pawsavers.pet;
 
+import com.oad.pawsavers.color.Color;
 import com.oad.pawsavers.common.constants.PetSize;
 import com.oad.pawsavers.common.constants.PetStatus;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,13 @@ public class PetController {
     public ResponseEntity<PetDTO> getPetById(@PathVariable("id") long id) {
         return petService.getPetById(id)
                 .map(petDTO -> new ResponseEntity<>(petDTO, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/{id}/details")
+    public ResponseEntity<PetDetailsDTO> getPetWitDetailsById(@PathVariable("id") long id) {
+        return petService.getPetWithDetailsById(id)
+                .map(petDetailsDTO -> new ResponseEntity<>(petDetailsDTO, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
@@ -78,5 +86,13 @@ public class PetController {
     @GetMapping("/rescuedate/{rescuedate}")
     public ResponseEntity<List<PetDTO>> getPetsByRescueDate(@PathVariable("rescuedate") String rescueDate) {
         return new ResponseEntity<>(petService.getPetsByRescueDate(rescueDate), HttpStatus.OK);
+    }
+
+    @PatchMapping("/{petId}/colors")
+    public ResponseEntity<PetDetailsDTO> setPetColorListByPetId(
+            @PathVariable("petId") long id,
+            @RequestBody List<Color> colorList
+            ) {
+        return new ResponseEntity<>(petService.setPetColorsByPetId(id, colorList), HttpStatus.OK);
     }
 }

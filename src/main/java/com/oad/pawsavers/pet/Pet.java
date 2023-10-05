@@ -2,6 +2,7 @@ package com.oad.pawsavers.pet;
 
 import com.oad.pawsavers.adopts.Adopt;
 import com.oad.pawsavers.cares.Care;
+import com.oad.pawsavers.color.Color;
 import com.oad.pawsavers.common.constants.PetPersonality;
 import com.oad.pawsavers.common.constants.PetSize;
 import com.oad.pawsavers.common.constants.PetStatus;
@@ -70,6 +71,14 @@ public class Pet {
     @OneToMany(mappedBy = "pet", cascade = CascadeType.ALL)
     private List<Care> careList;
 
+    @ManyToMany
+    @JoinTable(
+            name = "pets_colors",
+            joinColumns = @JoinColumn(name = "pet_id", foreignKey = @ForeignKey(name = "pet_fk")),
+            inverseJoinColumns = @JoinColumn(name = "color_id", foreignKey = @ForeignKey(name = "color_fk"))
+    )
+    private List<Color> colorList;
+
     public List<Rescue> getRescueList() {
         return rescueList;
     }
@@ -92,6 +101,14 @@ public class Pet {
 
     public void setCareList(List<Care> careList) {
         this.careList = careList;
+    }
+
+    public List<Color> getColorList() {
+        return colorList;
+    }
+
+    public void setColorList(List<Color> colorList) {
+        this.colorList = colorList;
     }
 
     public Long getId() {
