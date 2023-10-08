@@ -7,6 +7,7 @@ import com.oad.pawsavers.common.constants.PetPersonality;
 import com.oad.pawsavers.common.constants.PetSize;
 import com.oad.pawsavers.common.constants.PetStatus;
 import com.oad.pawsavers.rescues.Rescue;
+import com.oad.pawsavers.vaccinations.Vaccination;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -71,6 +72,9 @@ public class Pet {
     @OneToMany(mappedBy = "pet", cascade = CascadeType.ALL)
     private List<Care> careList;
 
+    @OneToMany(mappedBy = "pet", cascade = CascadeType.ALL)
+    private List<Vaccination> vaccinationList;
+
     @ManyToMany
     @JoinTable(
             name = "pets_colors",
@@ -101,6 +105,14 @@ public class Pet {
 
     public void setCareList(List<Care> careList) {
         this.careList = careList;
+    }
+
+    public List<Vaccination> getVaccinationList() {
+        return vaccinationList;
+    }
+
+    public void setVaccinationList(List<Vaccination> vaccinationList) {
+        this.vaccinationList = vaccinationList;
     }
 
     public List<Color> getColorList() {
