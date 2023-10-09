@@ -1,6 +1,9 @@
 package com.oad.pawsavers.pet;
 
+import com.oad.pawsavers.breed.BreedDTO;
 import com.oad.pawsavers.color.ColorDTO;
+import com.oad.pawsavers.specie.SpecieDTO;
+import com.oad.pawsavers.vaccinations.VaccinationDTO;
 
 import java.util.List;
 
@@ -16,7 +19,10 @@ public class PetDetailsDTO {
     private String rescueHistory;
     private String petAvatar;
     private String specialFeatures;
+    private SpecieDTO specieDTO;
+    private BreedDTO breedDTO;
     private List<ColorDTO> colorDTOList;
+    private List<VaccinationDTO> vaccinationDTOList;
 
     public Long getPetId() {
         return petId;
@@ -106,12 +112,36 @@ public class PetDetailsDTO {
         this.specialFeatures = specialFeatures;
     }
 
+    public SpecieDTO getSpecieDTO() {
+        return specieDTO;
+    }
+
+    public void setSpecieDTO(SpecieDTO specieDTO) {
+        this.specieDTO = specieDTO;
+    }
+
+    public BreedDTO getBreedDTO() {
+        return breedDTO;
+    }
+
+    public void setBreedDTO(BreedDTO breedDTO) {
+        this.breedDTO = breedDTO;
+    }
+
     public List<ColorDTO> getColorDTOList() {
         return colorDTOList;
     }
 
     public void setColorDTOList(List<ColorDTO> colorDTOList) {
         this.colorDTOList = colorDTOList;
+    }
+
+    public List<VaccinationDTO> getVaccinationDTOList() {
+        return vaccinationDTOList;
+    }
+
+    public void setVaccinationDTOList(List<VaccinationDTO> vaccinationDTOList) {
+        this.vaccinationDTOList = vaccinationDTOList;
     }
 
     @Override
@@ -128,7 +158,10 @@ public class PetDetailsDTO {
                 ", rescueHistory='" + rescueHistory + '\'' +
                 ", petAvatar='" + petAvatar + '\'' +
                 ", specialFeatures='" + specialFeatures + '\'' +
+                ", specieDTO=" + specieDTO +
+                ", breedDTO=" + breedDTO +
                 ", colorDTOList=" + colorDTOList +
+                ", vaccinationDTOList=" + vaccinationDTOList +
                 '}';
     }
 }

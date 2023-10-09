@@ -1,6 +1,12 @@
 package com.oad.pawsavers.pet;
 
-public class PetDTO {
+import com.oad.pawsavers.breed.BreedDTO;
+import com.oad.pawsavers.color.ColorDTO;
+import com.oad.pawsavers.specie.SpecieDTO;
+
+import java.util.List;
+
+public class PetViewDTO {
 
     private Long petId;
     private String petName;
@@ -13,8 +19,9 @@ public class PetDTO {
     private String rescueHistory;
     private String petAvatar;
     private String specialFeatures;
-    private Long specieId;
-    private Long breedId;
+    private SpecieDTO specieDTO;
+    private BreedDTO breedDTO;
+    private List<ColorDTO> colorDTOList;
 
     public Long getPetId() {
         return petId;
@@ -104,25 +111,33 @@ public class PetDTO {
         this.specialFeatures = specialFeatures;
     }
 
-    public Long getSpecieId() {
-        return specieId;
+    public SpecieDTO getSpecieDTO() {
+        return specieDTO;
     }
 
-    public void setSpecieId(Long specieId) {
-        this.specieId = specieId;
+    public void setSpecieDTO(SpecieDTO specieDTO) {
+        this.specieDTO = specieDTO;
     }
 
-    public Long getBreedId() {
-        return breedId;
+    public BreedDTO getBreedDTO() {
+        return breedDTO;
     }
 
-    public void setBreedId(Long breedId) {
-        this.breedId = breedId;
+    public void setBreedDTO(BreedDTO breedDTO) {
+        this.breedDTO = breedDTO;
+    }
+
+    public List<ColorDTO> getColorDTOList() {
+        return colorDTOList;
+    }
+
+    public void setColorDTOList(List<ColorDTO> colorDTOList) {
+        this.colorDTOList = colorDTOList;
     }
 
     @Override
     public String toString() {
-        return "PetDTO{" +
+        return "PetViewDTO{" +
                 "petId=" + petId +
                 ", petName='" + petName + '\'' +
                 ", petAge=" + petAge +
@@ -134,8 +149,9 @@ public class PetDTO {
                 ", rescueHistory='" + rescueHistory + '\'' +
                 ", petAvatar='" + petAvatar + '\'' +
                 ", specialFeatures='" + specialFeatures + '\'' +
-                ", specieId=" + specieId +
-                ", breedId=" + breedId +
+                ", specieDTO=" + specieDTO +
+                ", breedDTO=" + breedDTO +
+                ", colorDTOList=" + colorDTOList +
                 '}';
     }
 }

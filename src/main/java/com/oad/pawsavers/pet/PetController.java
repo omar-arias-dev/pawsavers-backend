@@ -88,6 +88,16 @@ public class PetController {
         return new ResponseEntity<>(petService.getPetsByRescueDate(rescueDate), HttpStatus.OK);
     }
 
+    @GetMapping("/specie/{specieId}")
+    public ResponseEntity<List<PetDTO>> getPetsBySpecieId(@PathVariable("specieId") long specieId) {
+        return new ResponseEntity<>(petService.getPetsBySpecieId(specieId), HttpStatus.OK);
+    }
+
+    @GetMapping("/breed/{breedId}")
+    public ResponseEntity<List<PetDTO>> getPetsByBreedId(@PathVariable("breedId") long breedId) {
+        return new ResponseEntity<>(petService.getPetsByBreedId(breedId), HttpStatus.OK);
+    }
+
     @PatchMapping("/{petId}/colors")
     public ResponseEntity<PetDetailsDTO> setPetColorListByPetId(
             @PathVariable("petId") long id,

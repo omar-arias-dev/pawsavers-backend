@@ -1,12 +1,14 @@
 package com.oad.pawsavers.pet;
 
 import com.oad.pawsavers.adopts.Adopt;
+import com.oad.pawsavers.breed.Breed;
 import com.oad.pawsavers.cares.Care;
 import com.oad.pawsavers.color.Color;
 import com.oad.pawsavers.common.constants.PetPersonality;
 import com.oad.pawsavers.common.constants.PetSize;
 import com.oad.pawsavers.common.constants.PetStatus;
 import com.oad.pawsavers.rescues.Rescue;
+import com.oad.pawsavers.specie.Specie;
 import com.oad.pawsavers.vaccinations.Vaccination;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -63,6 +65,24 @@ public class Pet {
     @Column(name = "special_features")
     private String specialFeatures;
 
+    @ManyToOne
+    @JoinColumn(
+            name = "specie_id",
+            referencedColumnName = "specie_id",
+            foreignKey = @ForeignKey(name = "specie_fk"),
+            nullable = false
+    )
+    private Specie specie;
+
+    @ManyToOne
+    @JoinColumn(
+            name = "breed_id",
+            referencedColumnName = "breed_id",
+            foreignKey = @ForeignKey(name = "breed_fk"),
+            nullable = false
+    )
+    private Breed breed;
+
     @OneToMany(mappedBy = "pet", cascade = CascadeType.ALL)
     private List<Rescue> rescueList;
 
@@ -83,45 +103,6 @@ public class Pet {
     )
     private List<Color> colorList;
 
-    public List<Rescue> getRescueList() {
-        return rescueList;
-    }
-
-    public void setRescueList(List<Rescue> rescueList) {
-        this.rescueList = rescueList;
-    }
-
-    public List<Adopt> getAdoptList() {
-        return adoptList;
-    }
-
-    public void setAdoptList(List<Adopt> adoptList) {
-        this.adoptList = adoptList;
-    }
-
-    public List<Care> getCareList() {
-        return careList;
-    }
-
-    public void setCareList(List<Care> careList) {
-        this.careList = careList;
-    }
-
-    public List<Vaccination> getVaccinationList() {
-        return vaccinationList;
-    }
-
-    public void setVaccinationList(List<Vaccination> vaccinationList) {
-        this.vaccinationList = vaccinationList;
-    }
-
-    public List<Color> getColorList() {
-        return colorList;
-    }
-
-    public void setColorList(List<Color> colorList) {
-        this.colorList = colorList;
-    }
 
     public Long getId() {
         return id;
@@ -209,5 +190,85 @@ public class Pet {
 
     public void setSpecialFeatures(String specialFeatures) {
         this.specialFeatures = specialFeatures;
+    }
+
+    public Specie getSpecie() {
+        return specie;
+    }
+
+    public void setSpecie(Specie specie) {
+        this.specie = specie;
+    }
+
+    public Breed getBreed() {
+        return breed;
+    }
+
+    public void setBreed(Breed breed) {
+        this.breed = breed;
+    }
+
+    public List<Rescue> getRescueList() {
+        return rescueList;
+    }
+
+    public void setRescueList(List<Rescue> rescueList) {
+        this.rescueList = rescueList;
+    }
+
+    public List<Adopt> getAdoptList() {
+        return adoptList;
+    }
+
+    public void setAdoptList(List<Adopt> adoptList) {
+        this.adoptList = adoptList;
+    }
+
+    public List<Care> getCareList() {
+        return careList;
+    }
+
+    public void setCareList(List<Care> careList) {
+        this.careList = careList;
+    }
+
+    public List<Vaccination> getVaccinationList() {
+        return vaccinationList;
+    }
+
+    public void setVaccinationList(List<Vaccination> vaccinationList) {
+        this.vaccinationList = vaccinationList;
+    }
+
+    public List<Color> getColorList() {
+        return colorList;
+    }
+
+    public void setColorList(List<Color> colorList) {
+        this.colorList = colorList;
+    }
+
+    @Override
+    public String toString() {
+        return "Pet{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", size=" + size +
+                ", personality=" + personality +
+                ", status=" + status +
+                ", registrationDateTime=" + registrationDateTime +
+                ", rescueDate=" + rescueDate +
+                ", rescueHistory='" + rescueHistory + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", specialFeatures='" + specialFeatures + '\'' +
+                ", specie=" + specie +
+                ", breed=" + breed +
+                ", rescueList=" + rescueList +
+                ", adoptList=" + adoptList +
+                ", careList=" + careList +
+                ", vaccinationList=" + vaccinationList +
+                ", colorList=" + colorList +
+                '}';
     }
 }

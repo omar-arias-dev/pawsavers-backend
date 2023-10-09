@@ -20,4 +20,8 @@ public interface PetRepository extends JpaRepository<Pet, Long> {
     List<Pet> findByStatusOrderByNameAsc(PetStatus status);
 
     List<Pet> findByRescueDateOrderByNameAsc(LocalDate date);
+
+    List<Pet> findBySpecieId(long specieId);
+
+    List<Pet> findByBreedId(long breedId);
 }

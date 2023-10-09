@@ -1,10 +1,12 @@
 package com.oad.pawsavers.pet;
 
+import com.oad.pawsavers.breed.*;
 import com.oad.pawsavers.color.Color;
 import com.oad.pawsavers.color.ColorRepository;
 import com.oad.pawsavers.common.constants.PetPersonality;
 import com.oad.pawsavers.common.constants.PetSize;
 import com.oad.pawsavers.common.constants.PetStatus;
+import com.oad.pawsavers.specie.SpecieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +30,12 @@ public class PetService {
     @Autowired
     private ColorRepository colorRepository;
 
+    @Autowired
+    private SpecieRepository specieRepository;
+
+    @Autowired
+    private BreedRepository breedRepository;
+
     public List<PetDTO> getAllPets() {
         return petMapper.toPetDTOList(petRepository.findAll());
     }
@@ -43,12 +51,24 @@ public class PetService {
     }
 
     public Pet createPet(PetDTO petDTO) {
-        return petRepository.save(petMapper.toPetEntity(petDTO));
+        if (
+                specieRepository.existsById(petDTO.getSpecieId()) &&
+                breedRepository.existsByIdAndSpecieId(petDTO.getBreedId(), petDTO.getSpecieId())
+        ) {
+            return petRepository.save(petMapper.toPetEntity(petDTO));
+        } else {
+            System.out.println("New Dog's specie or breed not exist, or breed is no part of specie.");
+            return null;
+        }
     }
 
     public boolean updatePet(long petId, PetDTO petDTO) {
         Optional<Pet> pet = petRepository.findById(petId);
-        if (pet.isPresent()) {
+        if (
+                pet.isPresent() &&
+                specieRepository.existsById(petDTO.getSpecieId()) &&
+                breedRepository.existsByIdAndSpecieId(petDTO.getBreedId(), petDTO.getSpecieId())
+        ) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             Pet petToUpdate = pet.get();
             petToUpdate.setName(petDTO.getPetName());
@@ -60,10 +80,12 @@ public class PetService {
             petToUpdate.setRescueHistory(petDTO.getRescueHistory());
             petToUpdate.setAvatar(petDTO.getPetAvatar());
             petToUpdate.setSpecialFeatures(petDTO.getSpecialFeatures());
+            petToUpdate.setSpecie(specieRepository.findById(petDTO.getSpecieId()).orElse(null));
+            petToUpdate.setBreed(breedRepository.findById(petDTO.getBreedId()).orElse(null));
             petRepository.save(petToUpdate);
             return true;
         } else {
-            System.out.println("Pet not found.");
+            System.out.println("Pet not found. Or specie or breed not exist, or breed is no part of specie.");
             return false;
         }
     }
@@ -98,6 +120,14 @@ public class PetService {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return petMapper.toPetDTOList(petRepository
                 .findByRescueDateOrderByNameAsc(LocalDate.parse(date, formatter)));
+    }
+
+    public List<PetDTO> getPetsBySpecieId(long specieId) {
+        return petMapper.toPetDTOList(petRepository.findBySpecieId(specieId));
+    }
+
+    public List<PetDTO> getPetsByBreedId(long breedId) {
+        return petMapper.toPetDTOList(petRepository.findByBreedId(breedId));
     }
 
     public PetDetailsDTO setPetColorsByPetId(long petId, List<Color> colorList) {
