@@ -27,6 +27,7 @@ public class AdministratorController {
     private RoleRepository roleRepository;
 
     @GetMapping("/test")
+    @PreAuthorize("hasAnyRole('ROOT', 'ADMIN', 'VIEWER')")
     public ResponseEntity<String> test() {
         return ResponseEntity.ok("Test");
     }
@@ -58,6 +59,7 @@ public class AdministratorController {
     }
 
     @DeleteMapping("/{administratorId}")
+    @PreAuthorize("hasRole('ROOT')")
     public ResponseEntity<String> deleteAdministrator(@PathVariable("administratorId") long id) {
         administratorRepository.deleteById(id);
         return ResponseEntity.ok("ADMINISTRATOR DELETED.");

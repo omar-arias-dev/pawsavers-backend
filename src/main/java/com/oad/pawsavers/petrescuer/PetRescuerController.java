@@ -3,6 +3,7 @@ package com.oad.pawsavers.petrescuer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,11 +16,13 @@ public class PetRescuerController {
     private PetRescuerService petRescuerService;
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ROOT', 'ADMIN', 'VIEWER')")
     public ResponseEntity<List<PetRescuerDTO>> getAllPetRescuers() {
         return new ResponseEntity<>(petRescuerService.getAllPetRescuers(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ROOT', 'ADMIN', 'VIEWER')")
     public ResponseEntity<PetRescuerDTO> getPetRescuerById(@PathVariable("id") long id) {
         return petRescuerService.getPetRescuerById(id)
                 .map(petRescuerDTO -> new ResponseEntity<>(petRescuerDTO, HttpStatus.OK))
@@ -27,11 +30,13 @@ public class PetRescuerController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('ROOT', 'ADMIN')")
     public ResponseEntity<PetRescuer> createPetRescuer(@RequestBody PetRescuerDTO petRescuerDTO) {
         return new ResponseEntity<>(petRescuerService.savePetRescuer(petRescuerDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ROOT', 'ADMIN')")
     public ResponseEntity updatePetRescuer(@PathVariable("id") long id, @RequestBody PetRescuerDTO petRescuerDTO) {
         if (petRescuerService.updatePetRescuer(id, petRescuerDTO)) {
             return new ResponseEntity(HttpStatus.OK);
@@ -41,6 +46,7 @@ public class PetRescuerController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ROOT', 'ADMIN')")
     public ResponseEntity deletePetSaverById(@PathVariable("id") long id) {
         if (petRescuerService.deletePetRescuerById(id)) {
             return new ResponseEntity(HttpStatus.OK);

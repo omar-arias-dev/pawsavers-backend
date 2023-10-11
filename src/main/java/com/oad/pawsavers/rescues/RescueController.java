@@ -3,6 +3,7 @@ package com.oad.pawsavers.rescues;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +17,7 @@ public class RescueController {
 
 
     @GetMapping("/{rescueId}")
+    @PreAuthorize("hasAnyRole('ROOT', 'ADMIN', 'VIEWER')")
     private ResponseEntity<RescueDetailsDTO> getRescueByRescueId(@PathVariable("rescueId") long petId) {
         return rescueService.getRescueByRescueId(petId)
                 .map(rescue -> new ResponseEntity<>(rescue, HttpStatus.OK))
@@ -23,6 +25,7 @@ public class RescueController {
     }
 
     @PostMapping("/pet/{petId}/petrescuer/{petRescuer}")
+    @PreAuthorize("hasAnyRole('ROOT', 'ADMIN')")
     private ResponseEntity<RescueDetailsDTO> createRescue(
             @PathVariable("petId") long petId,
             @PathVariable("petRescuer") long petRescuerId
@@ -31,6 +34,7 @@ public class RescueController {
     }
 
     @PutMapping("/pet/{petId}/petrescuer/{petRescuer}")
+    @PreAuthorize("hasAnyRole('ROOT', 'ADMIN')")
     private ResponseEntity<RescueDetailsDTO> updateRescue(
             @PathVariable("petId") long petId,
             @PathVariable("petRescuer") long petRescuerId
@@ -39,6 +43,7 @@ public class RescueController {
     }
 
     @DeleteMapping("/{rescueId}")
+    @PreAuthorize("hasAnyRole('ROOT', 'ADMIN')")
     private ResponseEntity deleteRescueById(@PathVariable("rescueId") long rescueId) {
         if (rescueService.deleteRescueByRescueId(rescueId)) {
             return new ResponseEntity(HttpStatus.OK);
@@ -48,6 +53,7 @@ public class RescueController {
     }
 
     @GetMapping("petrescuer/{petRescuerId}")
+    @PreAuthorize("hasAnyRole('ROOT', 'ADMIN', 'VIEWER')")
     private ResponseEntity<List<RescueDetailsDTO>> getAllRescuesByPetRescuerId(@PathVariable("petRescuerId") long petRescuerId) {
         return new ResponseEntity<>(rescueService.getRescuesByPetRescuerId(petRescuerId), HttpStatus.OK);
     }

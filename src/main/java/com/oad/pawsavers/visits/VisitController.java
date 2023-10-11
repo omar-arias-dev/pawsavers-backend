@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,16 +22,19 @@ public class VisitController {
     private VisitService visitService;
 
     @GetMapping("/employee/{employeeId}")
+    @PreAuthorize("hasAnyRole('ROOT', 'ADMIN', 'VIEWER')")
     public ResponseEntity<List<VisitDetailsDTO>> getVisitsByEmployeeId(@PathVariable("employeeId") long id) {
         return new ResponseEntity<>(visitService.getVisitsByEmployeeId(id), HttpStatus.OK);
     }
 
     @GetMapping("/petadopter/{petAdopterId}")
+    @PreAuthorize("hasAnyRole('ROOT', 'ADMIN', 'VIEWER')")
     public ResponseEntity<List<VisitDetailsDTO>> getVisitsByPetAdopterId(@PathVariable("petAdopterId") long id) {
         return new ResponseEntity<>(visitService.getVisitByPetAdopterId(id), HttpStatus.OK);
     }
 
     @GetMapping("/employee/{employeeId}/petadopter/{petAdopterId}")
+    @PreAuthorize("hasAnyRole('ROOT', 'ADMIN', 'VIEWER')")
     public ResponseEntity<List<VisitDetailsDTO>> getVisitByPetAdopterIdAndEmployeeId(
             @PathVariable("employeeId") long employeeId,
             @PathVariable("petAdopterId") long petAdopterId
@@ -42,6 +46,7 @@ public class VisitController {
     }
 
     @GetMapping("/employee/{employeeId}/petadopter/{petAdopterId}/datetime")
+    @PreAuthorize("hasAnyRole('ROOT', 'ADMIN', 'VIEWER')")
     public ResponseEntity<List<VisitDetailsDTO>> getVisitByPetAdopterIdAndEmployeeIdAndVisitDateTime(
             @PathVariable("employeeId") long employeeId,
             @PathVariable("petAdopterId") long petAdopterId,
@@ -57,6 +62,7 @@ public class VisitController {
             @ApiResponse(responseCode = "404", description = "employee o petAdopter not found", content = {@Content(schema = @Schema)}),
     })
     @PostMapping
+    @PreAuthorize("hasAnyRole('ROOT', 'ADMIN')")
     public ResponseEntity<Visit> createVisit(
             @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     description = "Id of visit is no required on request body.",
@@ -75,6 +81,7 @@ public class VisitController {
     }
 
     @PutMapping("/{visitId}")
+    @PreAuthorize("hasAnyRole('ROOT', 'ADMIN')")
     public ResponseEntity updateVisit(
             @PathVariable("visitId")  long visitId,
             @io.swagger.v3.oas.annotations.parameters.RequestBody(
@@ -98,6 +105,7 @@ public class VisitController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ROOT', 'ADMIN')")
     public ResponseEntity deleteVisit(@PathVariable("id") long id) {
         if (visitService.deleteVisit(id)) {
             return new ResponseEntity(HttpStatus.OK);
