@@ -53,4 +53,9 @@ public class BreedController {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/by-specie/{specieId}")
+    public ResponseEntity<List<BreedViewDTO>> getBreedsBySpecieId(@PathVariable("specieId") long specieId) {
+        return new ResponseEntity<>(breedService.getAllBreedsBySpecieId(specieId), HttpStatus.OK);
+    }
 }

@@ -17,7 +17,7 @@ public interface PetMapper {
             @Mapping(source = "size", target = "petSize"),
             @Mapping(source = "personality", target = "petPersonality"),
             @Mapping(source = "status", target = "petStatus"),
-            @Mapping(source = "registrationDateTime", target = "registrationDateTime", dateFormat = "yyyy-MM-dd HH-mm-ss"),
+            @Mapping(source = "registrationDateTime", target = "registrationDateTime", dateFormat = "yyyy-MM-dd HH:mm:ss"),
             @Mapping(source = "rescueDate", target = "rescueDate", dateFormat = "yyyy-MM-dd"),
             @Mapping(source = "avatar", target = "petAvatar"),
             @Mapping(source = "specie.id", target = "specieId"),

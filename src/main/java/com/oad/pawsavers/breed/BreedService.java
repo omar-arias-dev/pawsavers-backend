@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class BreedService {
@@ -75,5 +76,13 @@ public class BreedService {
         } else {
             return false;
         }
+    }
+
+    public List<BreedViewDTO> getAllBreedsBySpecieId(long specieId) {
+        /*return getAllBreeds()
+                .stream()
+                .filter(breed -> breed.getSpecieDTO().getSpecieId() == specieId)
+                .collect(Collectors.toList());*/
+        return breedViewMapper.toBreedViewDTOList(breedRepository.findBySpecieId(specieId));
     }
 }
